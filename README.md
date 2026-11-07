@@ -1,6 +1,6 @@
 <div align="center">
 
-#  Anti-Distraction-Youtube-and-Reddit-UBO-Filter
+#  Anti Distraction Youtube and Reddit UBO Filter
 
 </div>
 
