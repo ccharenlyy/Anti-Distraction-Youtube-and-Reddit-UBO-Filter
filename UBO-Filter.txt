@@ -1,0 +1,352 @@
+! CONVENTIONAL
+||accounts.google.com/gsi/*$xhr,script,3p
+||accounts.google.com/gsi/iframe/select?client_id=*.apps.googleusercontent.com
+||www.redditstatic.com/shreddit/search-input-desktop-client-css$css,domain=reddit.com
+||youtube.com/watch*&start_radio$doc,removeparam=~v
+||youtube.com/youtubei/v1/updated_metadata
+||youtube.com$removeparam=~/^(v|t|q|search_query|continuation|prettyprint|dark_theme|authuser)=/i
+
+! YOUTUBE SITE JAVASCRIPTS
+! YT consent
+youtube.com##+js(set, ytInitialData.topbar.desktopTopbarRenderer.interstitial.consentBumpRenderer.forceConsent, false)
+youtube.com##+js(json-prune, [].response.topbar.desktopTopbarRenderer.interstitial.consentBumpRenderer)
+youtube.com##+js(json-prune, topbar.desktopTopbarRenderer.interstitial.consentBumpRenderer)
+youtube.com##+js(set, ytInitialData.onResponseReceivedEndpoints, undefined)
+youtube.com##+js(set, ytInitialData.topbar.desktopTopbarRenderer.interstitial.consentBumpV2Renderer, undefined)
+youtube.com##+js(json-prune, [].response.overlay.consentBumpV2Renderer topbar.desktopTopbarRenderer.interstitial.consentBumpV2Renderer overlay.consentBumpV2Renderer response.overlay.consentBumpV2Renderer)
+youtube.com##+js(set, ytInitialData.desktopTopbar.desktopTopbarRenderer.interstitial.consentBumpV2Renderer, undefined)
+
+! youtube.com##+js(aeld, mouseenter)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_page_columns_top_padding, 24)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_page_horizontal_margin, 24)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_max_player_width, 1280)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_cinematics, false)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.delhi_modern_web_player, false)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.delhi_modern_web_player_icons, false)
+youtube.com##+js(set, Object.prototype.delhi_modern_web_player, false)
+youtube.com##+js(set, Object.prototype.delhi_modern_web_player_icons, false)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.enable_web_delhi_icons, false)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_secondary_max_width, 402)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.enable_player_resize_transition, false)
+youtube.com##+js(ra ,collapsed, ytd-playlist-panel-renderer[collapsed], stay)
+
+youtube.com##+js(json-edit, ..adaptiveFormats.*[?.audioTrack.isAutoDubbed])
+youtube.com##+js(json-edit-xhr-response, ..adaptiveFormats.*[?.audioTrack.isAutoDubbed], propsToMatch, /youtubei)
+youtube.com##+js(json-edit-fetch-response, ..adaptiveFormats.*[?.audioTrack.isAutoDubbed], propsToMatch, /youtubei)
+youtube.com##+js(rpnt, script, (function serverContract(), if("object"===typeof window.ytInitialPlayerResponse){window.ytInitialPlayerResponse=JSON.parse(JSON.stringify(window.ytInitialPlayerResponse));}(function serverContract(), sedCount, 1)
+
+www.youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_enable_ab_rsp_cl, false)
+www.youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.ab_pl_man, false)
+youtube.com/watch##+js(set, ytInitialData, undefined)
+youtube.com##+js(trusted-set-local-storage-item, yt-player-quality, '{"data":"{\"quality\":1080,\"previousQuality\":1080}","expiration":1999999999999,"creation":$now$}')
+
+/annotations_module.js$script,xhr,important,domain=youtube.com
+/endscreen.js$script,xhr,important,domain=youtube.com
+
+! YOUTUBE SITE COSMETIC FILTERING
+! YOUTUBE SHORT
+youtube.com##[is-shorts]
+www.youtube.com###guide [title="Shorts"], .ytd-mini-guide-entry-renderer[title="Shorts"]
+www.youtube.com##ytd-search ytd-video-renderer:has([overlay-style="SHORTS"],[href^="/shorts/"])
+www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##[tab-title="Shorts"]
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-grid-video-renderer:has([overlay-style="SHORTS"],[href^="/shorts/"])
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-video-renderer:has([overlay-style="SHORTS"],[href^="/shorts/"])
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-rich-item-renderer:has([overlay-style="SHORTS"],[href^="/shorts/"])
+www.youtube.com###related :is(ytd-compact-video-renderer,yt-lockup-view-model):has([overlay-style="SHORTS"],[href^="/shorts/"])
+www.youtube.com##ytd-item-section-renderer[page-subtype]:has(>#contents>[is-history]>#dismissible>ytd-thumbnail>#thumbnail[href^="/shorts/"])
+m.youtube.com##ytm-pivot-bar-item-renderer:has(>.pivot-shorts)
+m.youtube.com##ytm-reel-shelf-renderer
+m.youtube.com##ytm-rich-section-renderer:has([d^="M17.77,10.32l-1.2"])
+m.youtube.com##ytm-search ytm-video-with-context-renderer:has([data-style="SHORTS"])
+m.youtube.com##[tab-title="Shorts"]
+m.youtube.com##[tab-identifier="FEhistory"] ytm-compact-video-renderer:has(>div>a[href^="/shorts/"])
+
+! YOUTUBE MIX
+youtube.com##ytd-rich-item-renderer:has([href*="start_radio=1"])
+youtube.com##ytd-compact-radio-renderer, :is(#related yt-lockup-view-model,ytd-compact-video-renderer):has([href*="&start_radio=1"])
+youtube.com##ytd-radio-renderer, :is(ytd-search yt-lockup-view-model,ytd-video-renderer[is-search]):has([href*="&start_radio=1"][aria-label])
+youtube.com##.ytp-videowall-still[data-is-mix="true"]
+youtube.com##ytd-compact-playlist-renderer:has([title^="YouTube"])
+
+! YT - Hide Live Videos
+www.youtube.com##:is(ytd-rich-item-renderer,ytd-grid-video-renderer,ytd-compact-video-renderer,ytd-item-section-renderer,yt-lockup-view-model):has(.badge-style-type-live-now-alternate,.yt-spec-avatar-shape--live-ring,.yt-badge-shape--thumbnail-live)
+
+! YOUTUBE LAYOUT
+www.youtube.com##:is(ytd-rich-item-renderer,ytd-grid-video-renderer,ytd-compact-video-renderer,ytd-item-section-renderer):has(.badge-style-type-live-now-alternate,.yt-spec-avatar-shape--live-ring)
+www.youtube.com##ytd-browse[page-subtype="home"]
+www.youtube.com##ytd-watch-flexy #related
+www.youtube.com###secondary.ytd-watch-flexy:has(>#secondary-inner>#chat-container>:only-child):has(>#secondary-inner>#playlist[hidden])
+youtube.com##ytd-search ytd-item-section-renderer>#contents>:is(:not(ytd-video-renderer,ytd-channel-renderer,ytd-playlist-renderer,yt-lockup-view-model,yt-showing-results-for-renderer,[icon-name="promo-full-height:EMPTY_SEARCH"]),ytd-video-renderer:has([aria-label="Shorts"])),ytd-secondary-search-container-renderer
+! youtube.com##ytd-search ytd-item-section-renderer>#contents>:is(:not(ytd-video-renderer,ytd-channel-renderer,yt-showing-results-for-renderer,[icon-name="promo-full-height:EMPTY_SEARCH"]),ytd-video-renderer:has([aria-label="Shorts"])),ytd-secondary-search-container-renderer
+www.youtube.com##ytd-rich-item-renderer[rendered-from-rich-grid][is-in-first-column]:style(margin-left: calc(var(--ytd-rich-grid-item-margin)/2) !important)
+www.youtube.com##ytd-rich-grid-renderer>#contents:style(margin-left: calc(var(--ytd-rich-grid-gutter-margin)) !important)
+www.youtube.com###content.ytd-rich-section-renderer:style(margin-left: calc(var(--ytd-rich-grid-item-margin)/2) !important; margin-right: calc(var(--ytd-rich-grid-item-margin)*2.5) !important;)
+
+! YOUTUBE SITE OTHER COSMETIC FILTERING
+! UNIVERSAL
+youtube.com##tp-yt-app-drawer
+youtube.com##ytd-mini-guide-renderer
+youtube.com###logo
+youtube.com###endpoint[title="home"]
+youtube.com##.ytp-ce-element
+youtube.com###buttons > ytd-button-renderer.ytd-masthead
+youtube.com###voice-search-button
+
+! PLAYER
+youtube.com##.ytp-button.ytp-prev-button
+youtube.com##.ytp-button.ytp-next-button
+youtube.com##.ytp-button.ytp-miniplayer-button
+youtube.com##.ytp-button.ytp-subtitles-button
+youtube.com##.ytp-button.ytp-size-button
+youtube.com##.ytp-button.ytp-fullscreen-button
+youtube.com##.ytp-swatch-background-color.ytp-scrubber-button
+youtube.com###teaser-carousel
+youtube.com##.ytp-playlist-menu-button-icon
+youtube.com##.ytp-playlist-menu-button-text
+youtube.com##.ytwHowThisWasMadeSectionViewModelHost
+youtube.com###sponsor-button
+youtube.com###subscribe-button
+youtube.com###info > .yt-formatted-string.yt-simple-endpoint
+youtube.com##.ytp-bezel
+youtube.com##.ytp-time-seeking
+youtube.com##.html5-video-player > div > .ytp-bezel
+youtube.com###message > .yt-formatted-string.yt-simple-endpoint
+youtube.com##.ytp-settings-menu .ytp-menuitem:has([d^="M16.67,4.31C19.3,5.92,21,8.83"])
+youtube.com##.ytp-panel-menu .ytp-menuitem:has(> .ytp-menuitem-icon path[d^="M11.48 2.14 3.91 6.68A6 6 0 0 0 1 11.83v.33a6 6 0 0 0 2.91 5.14l7.57 4.54A1"])
+youtube.com###top-row.ytd-watch-metadata yt-button-view-model:has([aria-label="Ask"])
+youtube.com###top-row.ytd-watch-metadata yt-button-view-model:has([aria-label="Thanks"])
+youtube.com###top-row.ytd-watch-metadata yt-button-view-model:has([aria-label="Share"])
+youtube.com###top-row.ytd-watch-metadata ytd-download-button-renderer
+youtube.com###top-row.ytd-watch-metadata yt-button-view-model:has([aria-label="Clip"])
+youtube.com###top-row.ytd-watch-metadata yt-button-view-model:has([aria-label="Save"])
+youtube.com##.ytp-fullscreen-grid
+youtube.com##.ytp-chrome-top
+youtube.com##.ytp-gradient-top
+youtube.com##.ytp-seek-overlay
+youtube.com###movie_player > .ytp-tooltip:not(.ytp-preview)
+youtube.com###ticket-shelf
+youtube.com##.ytAttributionViewModelMediumText.ytAttributionViewModelHost.ytPageHeaderViewModelAttribution
+
+! CHANNEL
+youtube.com###end-actions-in-header
+youtube.com##.ytd-recognition-shelf-renderer
+youtube.com##ytd-rich-item-renderer.ytd-rich-grid-renderer:has([aria-label="Members only"])
+youtube.com##ytd-rich-item-renderer.ytd-rich-grid-renderer:has([aria-label="Members first"])
+youtube.com###image-container > .ytd-shelf-renderer.yt-simple-endpoint
+youtube.com###image-icon-container
+
+! SEARCH
+youtube.com###flexible-item-buttons
+youtube.com###byline-container
+youtube.com##ytd-thumbnail-overlay-resume-playback-renderer
+youtube.com###description.ytd-channel-renderer
+youtube.com##.ytd-playlist-panel-video-renderer > .ytd-menu-renderer.dropdown-trigger
+youtube.com##.yt-truncated-text__absolute-button
+youtube.com###always-shown > .ytd-metadata-row-container-renderer
+youtube.com##ytd-horizontal-card-list-renderer.ytd-structured-description-content-renderer
+youtube.com###description-inline-expander > .ytd-watch-metadata > ytd-metadata-row-container-renderer.ytd-watch-metadata
+youtube.com##.ytp-button.ytp-large-play-button
+youtube.com###expandable-metadata
+youtube.com##.ytp-share-button-visible.ytp-share-button.ytp-button > .ytp-share-icon
+youtube.com##.yt-spec-avatar-shape__live-badge--badge-extra-large.yt-spec-avatar-shape__live-badge
+youtube.com###primary-items.ytd-channel-sub-menu-renderer
+youtube.com##.yt-tab-shape__tab--last-tab.yt-tab-shape
+youtube.com##.ytAttributionViewModelMediumText.ytAttributionViewModelHost.yt-page-header-view-model__page-header-attribution
+youtube.com##.ytAttributionViewModelHost.yt-page-header-view-model__page-header-attribution
+youtube.com##.ytd-metadata-row-container-renderer > .ytd-rich-metadata-row-renderer
+youtube.com##ytd-video-description-infocards-section-renderer.ytd-structured-description-content-renderer
+youtube.com##.ytp-title-fullerscreen-link.yt-uix-sessionlink.ytp-title-link
+youtube.com##.ytd-video-renderer.metadata-snippet-container-one-line
+youtube.com##.ytd-video-renderer.metadata-snippet-container
+youtube.com##.ytSearchboxComponentClearButton
+youtube.com##ul[role="listbox"] > li[role="presentation"]:not(:has(a[href="#ps"]))
+youtube.com##ytd-popup-container > tp-yt-paper-dialog > ytd-mealbar-promo-renderer, ytd-popup-container > tp-yt-paper-dialog > yt-mealbar-promo-renderer:has-text(/Claim Offer|Join now|Not Now|No thanks|YouTube TV|live TV|Live TV|movies|sports|Try it free|unlimited DVR|watch NFL/)
+youtube.com##.no-transition.ytd-comment-simplebox-renderer
+youtube.com##.ytp-overflow-button-visible.ytp-overflow-button.ytp-button
+youtube.com##div.ytFlexibleActionsViewModelAction:nth-of-type(3)
+youtube.com##.ytd-thumbnail-overlay-time-status-renderer.thumbnail-overlay-badge-shape > .yt-badge-shape--typography.yt-badge-shape--thumbnail-badge.yt-badge-shape--thumbnail-default.yt-badge-shape > .yt-badge-shape__icon
+youtube.com##.ytp-overlays-container
+youtube.com###description-text
+youtube.com##.ytp-paid-content-overlay, .ytmPaidContentOverlayHost
+youtube.com##ytd-toggle-theme-compact-link-renderer.yt-multi-page-menu-section-renderer
+youtube.com###home-page-skeleton
+youtube.com##ytd-badge-supported-renderer.ytd-channel-name
+youtube.com##.ytd-item-section-renderer.ytCommentFilterContextHost
+youtube.com###subtitle.yt-dropdown-menu
+youtube.com##.yt-core-attributed-string--inline-block-mod
+youtube.com###icon.ytd-author-comment-badge-renderer
+youtube.com##ytd-merch-shelf-renderer.ytd-watch-metadata
+youtube.com##ytd-merch-shelf-renderer.ytd-watch-flexy
+youtube.com##.ytp-suggested-action
+youtube.com##.ytp-button.ytp-cards-button
+youtube.com##.ytp-button.branding-img-container
+youtube.com##.ytp-cards-teaser
+youtube.com##.ytSuggestionComponentVisualSuggestThumbnail
+youtube.com##.ytSuggestionComponentMetadataContainer
+youtube.com##.ytd-structured-description-content-renderer
+youtube.com##.ytSearchboxComponentClearButtonWrapper
+youtube.com##.ytp-caption-window-top.caption-window
+youtube.com###menu > .ytd-grid-video-renderer
+youtube.com##ytd-browse[page-subtype="home"] ytd-continuation-item-renderer:remove()
+youtube.com###view-more.ytd-grid-playlist-renderer
+youtube.com##.ytd-item-section-renderer > .ytd-channel-featured-content-renderer
+youtube.com##.page-header-sidebar
+youtube.com##.ytd-browse.page-header-sidebar.pageHeaderRendererHost
+youtube.com##ytd-single-option-survey-renderer
+youtube.com##ytd-badge-supported-renderer.ytd-watch-metadata
+youtube.com###button-container.ytd-about-channel-renderer
+youtube.com##.html5-video-player .ytp-tooltip-progress-bar-style .ytp-tooltip-text-wrapper > :not(.ytp-tooltip-progress-bar-pill)
+youtube.com##ytd-chechbox-survey-renderer
+youtube.com##.ytd-watch-flexy.attached-message
+youtube.com##.ytp-tooltip-edu > span:has-text(/^(Pull up for precise seeking)$/):upward(.ytp-tooltip-edu)
+youtube.com##.ytAttributionViewModelHost.ytPageHeaderViewModelAttribution
+youtube.com##.ytSpecButtonShapeNextSizeM.ytSpecButtonShapeNextMainstagePadding.ytSpecButtonShapeNextIconLeading .ytSpecButtonShapeNextIcon
+
+! SPECIFIC
+youtube.com##ytd-menu-service-item-renderer:has([d^="M480-80q0-83-31.5-156T363-363q-54-54-127-85.5T80-480q83"])
+youtube.com##ytd-menu-service-item-renderer:has([d^="M16.25 2A6.7 6.7 0 0012 3.509 6.75 6.75"])
+youtube.com##ytd-menu-service-item-renderer:has([d^="M6 2.002a4 4 0 102.03 7.445L10.586"])
+youtube.com##ytd-menu-service-item-renderer:has([d^="M19 2H5a2 2 0 00-2 2v16.887c0 1.266 1.382"])
+youtube.com##ytd-menu-service-item-download-renderer
+youtube.com##ytd-menu-service-item-renderer:has([d^="m4 2.999-.146.073A1.55 1.55 0 003 4.454v16.545a1"])
+youtube.com##.yt-list-item-view-model
+
+! YOUTUBE SITE STYLE CSS
+! ANIMATION
+youtube.com##yt-smartimation > :not(.smartimation__content)
+youtube.com##yt-animated-action > :not(.animated-action__content-with-background)
+youtube.com##:is(.smartimation__content, .animated-action__content-with-background) > :has(> lottie-component)
+
+! ATTRIBUTE
+youtube.com###published-time-text a:remove-attr(/href|class/)
+
+! COLOR
+youtube.com##.ytp-play-progress:style(background: #FF0000 !important;)
+youtube.com##ytd-thumbnail-overlay-resume-playback-renderer #progress.ytd-thumbnail-overlay-resume-playback-renderer:style(background: #FF0000 !important;)
+youtube.com##.ytSearchboxComponentSearchButton:style(background-color: unset !important;)
+youtube.com##.ytSearchboxComponentInputBox:style(background-color: unset !important;)
+youtube.com###description:style(background-color: unset !important;)
+youtube.com###skip-navigation:style(opacity: 0% !important;)
+
+youtube.com##ytd-watch-metadata[description-collapsed]:style( --yt-saturated-base-background: unset !important; --yt-saturated-raised-background: unset !important; --yt-saturated-additive-background: unset !important; --yt-saturated-text-primary: unset !important; --yt-saturated-text-secondary: unset !important; --yt-saturated-outline:  unset !important; --yt-saturated-key-light:  unset !important; --yt-saturated-collection-stack:  unset !important; --yt-saturated-inverted-background: unset !important; --yt-saturated-text-primary-inverse:  unset !important; --yt-saturated-text-disabled: unset !important; --yt-saturated-drop-shadow: unset !important; --yt-saturated-card-outline: unset !important; --yt-saturated-overlay-background: unset !important; --yt-saturated-overlay-text-primary: unset !important; )
+youtube.com##ytd-watch-metadata[description-collapsed] [style^="color:"] { color: unset !important; }
+youtube.com##ytd-watch-metadata[description-collapsed] [style*="background-color:"] { background-color: unset !important; }
+
+! FONT STYLE
+youtube.com##.dynamicTextViewModelH1:style(font-size: 2.4rem !important;)
+youtube.com##.complex-string.ytd-playlist-panel-renderer.title:style(font-size: 2rem !important;)
+youtube.com###video-title.ytd-rich-grid-media:style(font-size: 1.4rem !important; line-height: 2rem !important;)
+youtube.com###metadata-line.ytd-video-meta-block:style(font-size: 1.2rem !important; line-height: 1.8rem !important;)
+youtube.com###video-title.ytd-rich-grid-slim-media:style(font-size: 1.4rem !important; line-height: 2rem !important;)
+youtube.com##h1.ytd-watch-metadata:style(text-align: center !important; letter-spacing: 3px !important;)
+youtube.com##.ytp-caption-segment:style(font-size: 2rem !important;)
+
+! MARGIN & PADDING
+youtube.com##.ytd-watch-flexy:style(margin-left: auto !important; margin-right: auto !important;)
+youtube.com##ytd-backstage-items.ytd-section-list-renderer:style(margin-left: auto !important; margin-right: auto !important;)
+youtube.com##ytd-comments.ytd-section-list-renderer:style(margin-left: auto !important; margin-right: auto !important;)
+youtube.com##ytd-page-manager:style(margin-left: unset !important)
+youtube.com##.ytSearchboxComponentHost:style(margin-left: 0 !important)
+youtube.com##.ytSearchboxComponentInputBox:style(margin-left: 0 !important)
+youtube.com##ytd-rich-item-renderer:style(margin-right: calc(var(--ytd-rich-grid-item-margin)/2) !important; margin-left: calc(var(--ytd-rich-grid-item-margin)/2) !important;)
+youtube.com###primary:style(padding: 0 !important;)
+youtube.com###secondary:style(padding: 0 !important;)
+youtube.com###below:style(padding-right: 20px !important; padding-left: 20px !important;)
+youtube.com##ytd-search yt-lockup-view-model.ytLockupViewModelWrapper.lockup.ytd-item-section-renderer:style(margin-left:-120px !important)
+youtube.com##ytd-search .ytLockupMetadataViewModelTextContainer:style(margin-left:-120px !important)
+
+! POSITION
+youtube.com###actions:style(position: relative !important; bottom: 2px !important;)
+youtube.com###description-inner:style(position: relative !important; right: 10px !important;)
+youtube.com##.yt-page-header-view-model__page-header-headline > .yt-page-header-view-model__page-header-headline-info:style(position: relative !important; right: 8px !important)
+youtube.com###additional-section:style(position: relative !important; top: 3px !important;)
+youtube.com##ytd-two-column-search-results-renderer.ytd-search:style(position: relative !important; top: 10px !important;)
+
+! TRANSFORM & WIDTH
+youtube.com##.ytp-right-controls:style(transform: scale(0.85) !important; transform-origin: right !important;)
+youtube.com##.ytp-left-controls:style(transform: scale(0.85) !important; transform-origin: left !important;)
+!youtube.com##.yt-spec-avatar-shape__image:style(transform: scale(0.9) !important; position: relative !important; right: 7px !important; top: 1px !important;)
+youtube.com##.no-transition.ytd-channel-renderer:style(transform: scale(0.75) !important;)
+youtube.com##.caption-window.ytp-caption-window-rollup:style(left: 50% !important; transform: translateX(-50%) !important; text-align: center !important;)
+youtube.com##.no-transition.ytd-grid-channel-renderer:style(transform: scale(0.9) !important;)
+youtube.com##.ytp-settings-menu.ytp-popup:style(transform: scale(0.85) !important;)
+youtube.com##ytd-item-section-renderer[lockup-container-type="2"] #contents.ytd-item-section-renderer:style(grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)) !important;)
+youtube.com##ytd-search .yt-lockup-view-model__content-image, ytd-search ytd-thumbnail.ytd-video-renderer, ytd-search ytd-thumbnail.ytd-radio-renderer, ytd-search ytd-playlist-thumbnail.ytd-radio-renderer, ytd-search ytd-playlist-thumbnail.ytd-playlist-renderer, ytd-search #avatar-section.ytd-channel-renderer, ytd-search yt-collection-thumbnail-view-model, ytd-search yt-thumbnail-view-model.ytCollectionThumbnailViewModelHostHasStacks:style(max-width: 240px !important; min-width: unset !important;)
+youtube.com###primary-inner:style(max-width: 1280px !important;)
+youtube.com##.ytSuggestionComponentSuggestion:style(height: 32px !important; text-transform: lowercase !important;)
+youtube.com###toast:has(#text-container:has-text(/experiencing interruptions/i))
+
+! OTHER
+youtube.com##*:style(border-radius: 0px !important)
+youtube.com##ytd-mini-guide-renderer:style(display: none !important)
+youtube.com##ytd-page-manager:style(--ytd-mini-guide-width: 0 !important)
+youtube.com###container.ytd-masthead:style(display: grid !important; grid-template-columns: repeat(3, 1fr) !important)
+youtube.com##ytd-rich-grid-row:style(display:contents !important;)
+youtube.com###contents.ytd-rich-grid-row:style(display:contents !important;)
+youtube.com##ytd-rich-grid-renderer:style(--ytd-rich-grid-items-per-row: 5 !important;)
+youtube.com###fixed-side-menu
+youtube.com###primary yt-lockup-view-model .ytSpecTouchFeedbackShapeHovered:style( opacity: 0 !important; background: none !important; )
+
+! REDDIT SITE JAVASCRIPTS
+www.reddit.com##+js(aeld, mouseenter, , elements, [faceplate-popper-trigger])
+
+! REDDIT SITE COSMETIC FILTERING
+reddit.com##.bg-neutral-background-weak.p-md.rounded-md.gap-xs.items-center.justify-center.flex-col.xs\:flex.hidden
+reddit.com##.whitespace-nowrap.text-12.text-neutral-content-weak.lg\:mr-2xs
+reddit.com##.gap-xs.items-center.flex-wrap.gap-\[var\(--rem4\)\].flex.text-neutral-content-weak
+reddit.com##.pt-lg.xs\:px-0.px-md
+reddit.com###pdp-right-rail-topics > div > .flex-col.flex
+reddit.com##.text-neutral-content-weak.px-md > .items-center.justify-between.flex
+reddit.com##.gap-sm.flex-col.flex
+reddit.com##.justify-start.items-center.gap-xs.flex.pe-lg
+reddit.com###reddit-logo
+reddit.com###login-button
+reddit.com###signup-button
+reddit.com###empty-comments-banner
+reddit.com###low-comments-banner
+reddit.com###search-dropdown-results-container :is([id$="trending_query"], [id$="trending_query"]~search-telemetry-tracker)
+reddit.com###get-app
+reddit.com###advertise-button
+reddit.com##promote-post-button
+reddit.com##guides-subscription-handler
+reddit.com##search-answers-expandable
+reddit.com##community-highlight-carousel:not(:hover) > shreddit-gallery-carousel
+reddit.com##.min-w-0.items-start.flex-col.flex.w-full > search-telemetry-tracker
+reddit.com##.connected.relative.share-dropdown-menu
+reddit.com##div:has(+ #reddit-trending-searches-partial-container)
+reddit.com###reddit-trending-searches-partial-container
+reddit.com##.search-answers-preview-section
+reddit.com##reddit-search-large[show-ask-button]:remove-attr(show-ask-button)
+reddit.com###answers-suggested-queries-m3
+reddit.com##div.xs\:px-0.px-md.mb-0.pt-md.mt-md.border-x-0.border-neutral-border-weak.border-solid.border-b-0.border-t-sm
+reddit.com##.pb-sm.scrollbar-hide.mx-md.overflow-x-scroll.gap-xs.l\:auto-cols-\[calc\(25\%-0\.5rem\)\].xs\:auto-cols-\[calc\(33\.33\%-0\.5rem\)\].auto-cols-\[calc\(50\%-0\.5rem\)\].grid-flow-col.grid
+reddit.com##div.items-center.justify-between.flex.py-sm.px-md
+reddit.com##hr.xs\:mx-md.border-b-neutral-border-weak.border-solid.border-b-sm.border-0.list-divider-line:nth-of-type(1)
+reddit.com##.pb-md.scrollbar-hide.mx-md.overflow-x-auto.gap-sm.flex-wrap.flex
+reddit.com##li > .border-neutral-border-weak.my-sm.w-100
+reddit.com##.items-center.justify-between.flex.pb-2xs.pt-sm.px-md
+reddit.com##.xs\:my-md.my-2xs.xs\:mx-md.border-b-neutral-border-weak.border-solid.border-b-sm.border-0
+reddit.com###desktop-dynamic-upsell-dialog
+reddit.com###answers-suggested-queries
+reddit.com##.mb-md.mx-md.flex.legal-links
+reddit.com##div.items-center.justify-between.flex.pt-sm.px-md:nth-of-type(3)
+reddit.com##.py-sm.scrollbar-hide.mx-md.overflow-x-scroll.gap-xs.l\:auto-cols-\[calc\(25\%-0\.5rem\)\].xs\:auto-cols-\[calc\(33\.33\%-0\.5rem\)\].auto-cols-\[calc\(50\%-0\.5rem\)\].grid-flow-col.grid
+reddit.com##div.items-center.justify-between.flex.pt-sm.px-md:nth-of-type(1)
+reddit.com###answers-suggested-queries-pdp
+reddit.com##.my-2xs.py-2xs.px-md.flex-col.flex.nd\:visible
+reddit.com##div.items-center.justify-between.flex.pt-sm.px-md
+
+! REDDIT SITE STYLE CSS
+! COLOR
+reddit.com###left-sidebar-container:style(display:none !important)
+reddit.com##shreddit-app > .grid:style(display: block !important;)
+reddit.com##shreddit-comment search-telemetry-tracker a:style(color:unset!important)
+reddit.com##shreddit-comment search-telemetry-tracker a:remove-attr(/href|class/)
+reddit.com##shreddit-comment search-telemetry-tracker a>span:has(svg)
+
+! OTHER
+reddit.com##*:style(border-radius: 0px !important)
+reddit.com##.m\:\[\&\.flex-sidebar\]\:grid-cols-\[66\%_32\%\].m\:\[\&\.fixed-sidebar\]\:grid-cols-\[66\%_32\%\].fixed-sidebar.grid-cols-\[minmax\(0\,1fr\)\].place-content-between.grid.flex-1.w-full.gap-lg.main-container:style(display: block !important; margin-left: auto !important; margin-right: auto !important; max-width: 100vw !important;)
+reddit.com##.m\:\[\&\.flex-sidebar\]\:grid-cols-\[minmax\(0\,756px\)_auto\].m\:\[\&\.fixed-sidebar\]\:grid-cols-\[minmax\(0\,756px\)_minmax\(0\,316px\)\].fixed-sidebar.grid-cols-\[minmax\(0\,1fr\)\].place-content-between.grid.flex-1.w-full.gap-lg.main-container:style(display: block !important; margin-left: auto !important; margin-right: auto !important; max-width: 100vw !important;)
+reddit.com##.grid-container:style(display: block !important; margin-left: auto !important; margin-right: auto !important; max-width: 100vw !important;)
